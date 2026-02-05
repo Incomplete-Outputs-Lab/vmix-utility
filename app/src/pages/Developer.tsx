@@ -35,7 +35,7 @@ const TwitchIcon = (props: SvgIconProps) => (
 
 const Developer = () => {
   const { resolvedTheme } = useTheme();
-  const repositoryUrl = 'https://github.com/FlowingSPDG/vmix-utility';
+  const repositoryUrl = 'https://github.com/Incomplete-Outputs-Lab/vmix-utility';
   const developerGitHub = 'https://github.com/FlowingSPDG';
   const sponsorUrl = 'https://github.com/sponsors/FlowingSPDG';
   const twitchSupportUrl = 'https://subs.twitch.tv/flowingspdg';
@@ -101,7 +101,7 @@ const Developer = () => {
                 </Avatar>
                 <Box>
                   <Typography variant="h6" component="h2">
-                    Shugo "FlowingSPDG" Kawamura
+                    未完成成果物研究所
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Developer & Maintainer
@@ -110,7 +110,7 @@ const Developer = () => {
               </Box>
               
               <Typography variant="body2" gutterBottom>
-                Creator and main developer of vmix-utility. Passionate about broadcasting technology and creating tools to enhance live streaming workflows.
+                Development team creating tools to enhance live streaming workflows and broadcasting technology.
               </Typography>
               
               <Button
@@ -214,7 +214,7 @@ const Developer = () => {
               <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
                 {`MIT License
 
-Copyright (c) 2020 Shugo Kawamura
+Copyright (c) 2020 未完成成果物研究所
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -258,6 +258,25 @@ SOFTWARE.`}
             </Typography>
             
             <List>
+              <ListItem sx={{ pl: 0 }}>
+                <ListItemIcon>
+                  <Avatar sx={{ bgcolor: 'primary.main' }}>
+                    <Code />
+                  </Avatar>
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Link
+                      component="button"
+                      onClick={() => openInBrowser('https://github.com/FlowingSPDG')}
+                      sx={{ textDecoration: 'underline', cursor: 'pointer' }}
+                    >
+                      Shugo "FlowingSPDG" Kawamura
+                    </Link>
+                  }
+                  secondary="Original Creator & Developer - Created and developed vmix-utility"
+                />
+              </ListItem>
               <ListItem sx={{ pl: 0 }}>
                 <ListItemIcon>
                   <Avatar sx={{ bgcolor: 'primary.main' }}>
