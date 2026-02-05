@@ -1,7 +1,7 @@
 # vmix-utility
 
-[![Test Build](https://github.com/FlowingSPDG/vmix-utility/actions/workflows/test-build.yml/badge.svg)](https://github.com/FlowingSPDG/vmix-utility/actions/workflows/test-build.yml)
-[![Publish Release](https://github.com/FlowingSPDG/vmix-utility/actions/workflows/release.yml/badge.svg)](https://github.com/FlowingSPDG/vmix-utility/actions/workflows/release.yml)
+[![Test Build](https://github.com/Incomplete-Outputs-Lab/vmix-utility/actions/workflows/test-build.yml/badge.svg)](https://github.com/Incomplete-Outputs-Lab/vmix-utility/actions/workflows/test-build.yml)
+[![Publish Release](https://github.com/Incomplete-Outputs-Lab/vmix-utility/actions/workflows/release.yml/badge.svg)](https://github.com/Incomplete-Outputs-Lab/vmix-utility/actions/workflows/release.yml)
 
 ### About / 概要
 
@@ -11,9 +11,9 @@ vMix接続と操作を管理するデスクトップアプリケーション。T
 
 ### Installation / インストール
 
-Download the latest version for your platform from [Releases](https://github.com/FlowingSPDG/vmix-utility/releases):
+Download the latest version for your platform from [Releases](https://github.com/Incomplete-Outputs-Lab/vmix-utility/releases):
 
-[Releases](https://github.com/FlowingSPDG/vmix-utility/releases)から最新版をダウンロードしてください：
+[Releases](https://github.com/Incomplete-Outputs-Lab/vmix-utility/releases)から最新版をダウンロードしてください：
 
 - **Windows**: `.msi` installer
 - **macOS**: `.dmg` file (Intel and Apple Silicon)
@@ -37,10 +37,10 @@ MITライセンス - 詳細は[LICENSE](LICENSE)ファイルを参照してく�
 
 ### Links / リンク
 
-- [Download Latest Release](https://github.com/FlowingSPDG/vmix-utility/releases/latest)
-- [Report Issues](https://github.com/FlowingSPDG/vmix-utility/issues)
+- [Download Latest Release](https://github.com/Incomplete-Outputs-Lab/vmix-utility/releases/latest)
+- [Report Issues](https://github.com/Incomplete-Outputs-Lab/vmix-utility/issues)
 - [vMix Official Website](https://www.vmix.com/)
 
 ### Developer / 開発者
 
-**Shugo Kawamura** - [@FlowingSPDG](https://github.com/FlowingSPDG)
+**未完成成果物研究所**
