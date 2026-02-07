@@ -148,7 +148,10 @@ const Developer = () => {
                 <Grid2 size={{ xs: 12, sm: 4 }}>
                   <Button
                     variant="contained"
-                    color="secondary"
+                    sx={{
+                      backgroundColor: '#FFA500',
+                      '&:hover': { backgroundColor: '#FF8C00' },
+                    }}
                     startIcon={<Star />}
                     onClick={() => openInBrowser(repositoryUrl)}
                     fullWidth
