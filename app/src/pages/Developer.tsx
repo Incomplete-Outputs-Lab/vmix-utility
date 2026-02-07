@@ -144,60 +144,22 @@ const Developer = () => {
                 <strong>💡 Did you know?</strong> If you have Amazon Prime, you can subscribe for free each month via Prime Gaming! Twitch subscriptions don't auto-renew, so you can choose to support the project every month.
               </Typography>
 
-              <Grid2 container spacing={2} sx={{ mt: 1 }}>
-                <Grid2 size={12}>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: '#9146FF',
-                      '&:hover': { backgroundColor: '#772CE8' },
-                      height: '56px',
-                      fontSize: '1.1rem',
-                    }}
-                    startIcon={<TwitchIcon />}
-                    onClick={() => openInBrowser(twitchSupportUrl)}
-                    fullWidth
-                  >
-                    Subscribe on Twitch
-                  </Button>
-                </Grid2>
-                <Grid2 size={{ xs: 12, sm: 6 }}>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      borderColor: '#FFA500',
-                      color: '#FFA500',
-                      '&:hover': {
-                        borderColor: '#FF8C00',
-                        backgroundColor: 'rgba(255, 165, 0, 0.08)',
-                      },
-                    }}
-                    startIcon={<Star />}
-                    onClick={() => openInBrowser(repositoryUrl)}
-                    fullWidth
-                  >
-                    Star on GitHub
-                  </Button>
-                </Grid2>
-                <Grid2 size={{ xs: 12, sm: 6 }}>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      borderColor: '#13C3FF',
-                      color: '#13C3FF',
-                      '&:hover': {
-                        borderColor: '#0FA8CC',
-                        backgroundColor: 'rgba(19, 195, 255, 0.08)',
-                      },
-                    }}
-                    startIcon={<FavoriteOutlined />}
-                    onClick={() => openInBrowser(sponsorUrl)}
-                    fullWidth
-                  >
-                    GitHub Sponsors
-                  </Button>
-                </Grid2>
-              </Grid2>
+              <Box sx={{ mt: 1 }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: '#9146FF',
+                    '&:hover': { backgroundColor: '#772CE8' },
+                    height: '56px',
+                    fontSize: '1.1rem',
+                  }}
+                  startIcon={<TwitchIcon />}
+                  onClick={() => openInBrowser(twitchSupportUrl)}
+                  fullWidth
+                >
+                  Subscribe on Twitch
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         </Grid2>
