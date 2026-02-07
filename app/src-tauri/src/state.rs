@@ -1,6 +1,6 @@
 use crate::types::{
     AppConfig, AppSettings, AutoRefreshConfig, ConnectionConfig, ConnectionType,
-    VmixConnection, VmixInput, VmixVideoListInput,
+    DonationPromptConfig, VmixConnection, VmixInput, VmixVideoListInput,
 };
 use crate::http_client::VmixClientWrapper;
 use crate::tcp_manager::TcpVmixManager;
@@ -32,6 +32,7 @@ pub struct AppState {
     pub connection_labels: Arc<Mutex<HashMap<String, String>>>,
     pub app_settings: Arc<Mutex<AppSettings>>,
     pub video_list_windows: Arc<Mutex<HashMap<String, VideoListWindow>>>,
+    pub donation_prompt: Arc<Mutex<DonationPromptConfig>>,
 }
 
 impl AppState {
@@ -46,6 +47,7 @@ impl AppState {
             connection_labels: Arc::new(Mutex::new(HashMap::new())),
             app_settings: Arc::new(Mutex::new(AppSettings::default())),
             video_list_windows: Arc::new(Mutex::new(HashMap::new())),
+            donation_prompt: Arc::new(Mutex::new(DonationPromptConfig::default())),
         }
     }
     
@@ -138,6 +140,7 @@ impl AppState {
                 connections: all_connections,
                 app_settings: Some(self.app_settings.lock().unwrap().clone()),
                 logging_config: Some(crate::logging::LOGGING_CONFIG.lock().unwrap().clone()),
+                donation_prompt: Some(self.donation_prompt.lock().unwrap().clone()),
             }
         };
         
@@ -223,9 +226,16 @@ impl AppState {
             *config = logging_config;
             println!("Loaded logging config");
         }
-        
+
+        // Load donation prompt config
+        if let Some(donation_prompt) = config.donation_prompt {
+            let mut prompt = self.donation_prompt.lock().unwrap();
+            *prompt = donation_prompt;
+            println!("Loaded donation prompt config");
+        }
+
         println!("Config loading completed");
-        
+
         Ok(())
     }
 

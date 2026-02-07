@@ -133,6 +133,8 @@ pub struct AppConfig {
     pub connections: Vec<ConnectionConfig>,
     pub app_settings: Option<AppSettings>,
     pub logging_config: Option<LoggingConfig>,
+    #[serde(default)]
+    pub donation_prompt: Option<DonationPromptConfig>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -230,6 +232,21 @@ impl Default for LoggingConfig {
             level: "info".to_string(),
             save_to_file: false,
             file_path: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DonationPromptConfig {
+    pub last_shown: Option<String>,       // RFC3339 timestamp
+    pub permanently_dismissed: bool,       // "今後表示しない" flag
+}
+
+impl Default for DonationPromptConfig {
+    fn default() -> Self {
+        Self {
+            last_shown: None,
+            permanently_dismissed: false
         }
     }
 }

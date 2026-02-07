@@ -10,6 +10,7 @@ use crate::app_log;
 use crate::network_scanner::{get_network_interfaces, scan_network_for_vmix, NetworkInterface, VmixScanResult};
 use std::collections::HashMap;
 use tauri::{AppHandle, Manager, State, WebviewUrl, WebviewWindowBuilder, Emitter};
+use chrono::{DateTime, Duration, Utc};
 
 
 // Shared builder function to build VideoList inputs from vmix-rs model
@@ -1313,4 +1314,76 @@ pub async fn scan_network_for_vmix_command(
             Err(format!("Failed to scan network for vMix: {}", e))
         }
     }
+}
+
+#[tauri::command]
+pub async fn should_show_donation_prompt(
+    state: State<'_, AppState>
+) -> Result<bool, String> {
+    let prompt_config = state.donation_prompt.lock().unwrap();
+
+    // If permanently dismissed, don't show
+    if prompt_config.permanently_dismissed {
+        app_log!(debug, "Donation prompt permanently dismissed");
+        return Ok(false);
+    }
+
+    // If never shown before, show it
+    if prompt_config.last_shown.is_none() {
+        app_log!(info, "Donation prompt: first time, should show");
+        return Ok(true);
+    }
+
+    // Check if 30 days have passed since last shown
+    if let Some(ref last_shown_str) = prompt_config.last_shown {
+        match DateTime::parse_from_rfc3339(last_shown_str) {
+            Ok(last_shown) => {
+                let now = Utc::now();
+                let duration_since_last = now.signed_duration_since(last_shown.with_timezone(&Utc));
+
+                // Show if 30 days (or more) have passed
+                if duration_since_last >= Duration::days(30) {
+                    app_log!(info, "Donation prompt: 30 days passed, should show");
+                    Ok(true)
+                } else {
+                    app_log!(debug, "Donation prompt: shown {} days ago, not showing yet", duration_since_last.num_days());
+                    Ok(false)
+                }
+            }
+            Err(e) => {
+                app_log!(error, "Failed to parse last_shown timestamp: {}", e);
+                // If timestamp is invalid, treat as first time
+                Ok(true)
+            }
+        }
+    } else {
+        Ok(true)
+    }
+}
+
+#[tauri::command]
+pub async fn dismiss_donation_prompt(
+    state: State<'_, AppState>,
+    app_handle: AppHandle,
+    permanently: bool
+) -> Result<(), String> {
+    app_log!(info, "Dismissing donation prompt (permanently: {})", permanently);
+
+    {
+        let mut prompt_config = state.donation_prompt.lock().unwrap();
+
+        // Update last_shown to current time
+        prompt_config.last_shown = Some(Utc::now().to_rfc3339());
+
+        // Set permanently_dismissed flag if requested
+        if permanently {
+            prompt_config.permanently_dismissed = true;
+            app_log!(info, "Donation prompt permanently dismissed");
+        }
+    }
+
+    // Save config to persist the changes
+    state.save_config(&app_handle).await?;
+
+    Ok(())
 }
