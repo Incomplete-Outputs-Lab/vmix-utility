@@ -70,7 +70,10 @@ const DonationDialog = ({ open, onClose }: DonationDialogProps) => {
           <Grid2 size={12}>
             <Button
               variant="contained"
-              color="secondary"
+              sx={{
+                backgroundColor: '#FFA500',
+                '&:hover': { backgroundColor: '#FF8C00' },
+              }}
               startIcon={<Star />}
               onClick={() => openInBrowser('https://github.com/Incomplete-Outputs-Lab/vmix-utility')}
               fullWidth
