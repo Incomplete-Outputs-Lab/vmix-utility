@@ -3,7 +3,7 @@ name = "app"
 version = "2.2.2"
 description = "app"
 authors = ["未完成成果物研究所"]
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
