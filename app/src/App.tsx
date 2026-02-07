@@ -5,14 +5,17 @@ import { Box, Typography } from '@mui/material';
 import Layout from './components/Layout';
 import ListManager from './pages/ListManager';
 import SingleVideoList from './pages/SingleVideoList';
+import DonationDialog from './components/DonationDialog';
 import { VMixStatusProvider } from './hooks/useVMixStatus';
 import { ThemeProvider as CustomThemeProvider, useTheme } from './hooks/useTheme';
 import { UISettingsProvider } from './hooks/useUISettings.tsx';
+import { invoke } from '@tauri-apps/api/core';
 import "./App.css";
 
 function AppContent() {
   const { resolvedTheme, isLoading } = useTheme();
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [donationDialogOpen, setDonationDialogOpen] = useState(false);
 
   const theme = useMemo(() => createTheme({
     palette: {
@@ -34,11 +37,43 @@ function AppContent() {
 
     // Listen for popstate events (back/forward buttons)
     window.addEventListener('popstate', handleLocationChange);
-    
+
     return () => {
       window.removeEventListener('popstate', handleLocationChange);
     };
   }, []);
+
+  // Check if donation prompt should be shown (only on main window)
+  useEffect(() => {
+    // Only show on main window (not on popup windows like /list-manager)
+    if (currentPath !== '/') {
+      return;
+    }
+
+    // Wait 2 seconds after startup before checking
+    const timer = setTimeout(async () => {
+      try {
+        const shouldShow = await invoke<boolean>('should_show_donation_prompt');
+        if (shouldShow) {
+          setDonationDialogOpen(true);
+        }
+      } catch (error) {
+        console.error('Failed to check donation prompt:', error);
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [currentPath]);
+
+  const handleDonationDialogClose = async (permanently: boolean) => {
+    setDonationDialogOpen(false);
+
+    try {
+      await invoke('dismiss_donation_prompt', { permanently });
+    } catch (error) {
+      console.error('Failed to dismiss donation prompt:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -89,6 +124,10 @@ function AppContent() {
       <UISettingsProvider>
         <VMixStatusProvider>
           {renderContent()}
+          <DonationDialog
+            open={donationDialogOpen}
+            onClose={handleDonationDialogClose}
+          />
         </VMixStatusProvider>
       </UISettingsProvider>
     </ThemeProvider>

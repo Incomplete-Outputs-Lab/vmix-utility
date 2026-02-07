@@ -221,7 +221,9 @@ pub fn run() {
             check_for_updates,
             install_update,
             get_network_interfaces_command,
-            scan_network_for_vmix_command
+            scan_network_for_vmix_command,
+            should_show_donation_prompt,
+            dismiss_donation_prompt
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
