@@ -96,7 +96,6 @@ pub fn run() {
             let _ = app.get_webview_window("main").expect("no main window").set_focus();
         }))
         .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_shell::init())
         .plugin(prevent_default())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_updater::Builder::new().build())

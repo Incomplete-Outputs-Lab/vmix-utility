@@ -21,7 +21,6 @@ import {
   Code,
   FavoriteOutlined,
   Description,
-  Star,
 } from '@mui/icons-material';
 import { openUrl } from '@tauri-apps/plugin-opener';
 import { SvgIconProps } from '@mui/material/SvgIcon';
@@ -37,7 +36,6 @@ const Developer = () => {
   const { resolvedTheme } = useTheme();
   const repositoryUrl = 'https://github.com/Incomplete-Outputs-Lab/vmix-utility';
   const developerGitHub = 'https://github.com/FlowingSPDG';
-  const sponsorUrl = 'https://github.com/sponsors/FlowingSPDG';
   const twitchSupportUrl = 'https://subs.twitch.tv/flowingspdg';
 
   const openInBrowser = (url: string) => {
